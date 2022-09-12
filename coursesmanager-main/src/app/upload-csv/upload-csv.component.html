@@ -1,0 +1,10 @@
+<h2>Upload CSV of courses, classes, and students</h2>
+
+<div class="form-group">
+  <label for="file">Choose File</label>
+  <input type="file"
+         id="file"
+         (change)="handleFileInput($event)">
+
+  <button class="btn btn-primary" (click)="parseCSV()">Upload Courses, Classes, and Students</button>
+</div>

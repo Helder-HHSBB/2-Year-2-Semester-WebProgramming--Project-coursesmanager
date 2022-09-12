@@ -1,0 +1,104 @@
+<div *ngIf="courseClass">
+  <h2>{{courseClass.name }}</h2>
+  <div>
+    <label for="course-name">Class name: </label>
+    <input id="course-name" [(ngModel)]="courseClass.name" placeholder="CourseDashboard name"/>
+  </div>
+  <div *ngIf="loadedAllCriteria">
+    <ul class="courses">
+      <li *ngFor="let criterium of criteria">
+          <span class="badge">{{criterium.id}}</span> {{criterium.name}}
+        <button type="button" class="btn btn-danger" title="delete course"
+                (click)="deleteCriterium(criterium)">x</button>
+      </li>
+    </ul>
+
+    <div class="form-group">
+      <label for="new-class">Criterium name: </label>
+      <input id="new-class" #criteriumName />
+
+      <!-- (click) passes input value to add() and then clears the input -->
+      <button type="button" class="add-button" (click)="saveNewCriterium(criteriumName.value); criteriumName.value=''">
+        Add Criterium
+      </button>
+    </div>
+
+  </div>
+  <div *ngIf="loadedAllCriteria && loadedAllScores">
+    <h2>students</h2>
+    <table class="table" *ngIf="students">
+      <thead>
+        <th>Id</th>
+        <th>Name</th>
+        <th *ngFor="let criterium of criteria">{{criterium.name}} Score</th>
+        <th>Delete?</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of students">
+          <td>{{ student.id }}</td>
+          <td><a href="#">{{ student.name }}</a></td>
+          <td *ngFor="let criterium of criteria">
+            <div class="input-group input-group-sm mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-sm">Score</span>
+              </div>
+              <div *ngIf="getStudentScoreForCriteria(student, criterium) as studentScore">
+                <input type="text" class="score-box" aria-label="Small" aria-describedby="inputGroup-sizing-sm" [(ngModel)]="studentScore.amount">
+              </div>
+              <button *ngIf="!getStudentScoreForCriteria(student, criterium)" (click)="createNewStudentScore(student, criterium)" class="btn btn-secondary">New</button>
+            </div>
+          </td>
+          <td><button type="button" class="btn btn-danger" title="delete student"
+                      (click)="deleteStudent(student)">x</button></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><button type="button" class="btn btn-primary" title="Update scores"
+                      (click)="saveScores()">Update Scores</button></td>
+          <td *ngFor="let criterium of criteria"></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="form-group">
+      <label for="new-student">New Student name: </label>
+      <input id="new-student" #studentName />
+
+      <!-- (click) passes input value to add() and then clears the input -->
+      <button type="button" class="add-button" (click)="saveNewStudent(studentName.value); studentName.value=''">
+        Add Student
+      </button>
+    </div>
+
+    <h2>Notes</h2>
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Note</th>
+        <th scope="col">Delete?</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let classNote of classNotes">
+        <th scope="row">{{classNote.id}}</th>
+        <td>{{classNote.note}}</td>
+        <td>        <button type="button" class="btn btn-danger" title="delete note"
+                            (click)="deleteNote(classNote)">x</button></td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="form-group">
+      <label for="new-note">New Note: </label>
+      <input id="new-note" #noteContent />
+
+      <!-- (click) passes input value to add() and then clears the input -->
+      <button type="button" class="add-button" (click)="saveNote(noteContent.value); noteContent.value=''">
+        Add Note
+      </button>
+    </div>
+
+  </div>
+</div>

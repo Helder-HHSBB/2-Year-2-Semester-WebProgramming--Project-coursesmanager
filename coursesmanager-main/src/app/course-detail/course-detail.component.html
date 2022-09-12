@@ -1,0 +1,41 @@
+<div *ngIf="course">
+  <h2>{{course.name }}</h2>
+  <div class="form-group">
+    <label for="course-name">Change Course name: </label>
+    <input id="course-name" class="form-control" [(ngModel)]="course.name" placeholder="CourseDashboard name"/>
+  </div>
+  <button type="button" class="btn btn-primary" (click)="goBack()">go back</button>
+  <button type="button" class="btn btn-primary" style="margin-left:20px" (click)="save()">save</button>
+  <div>
+    <h2 style="margin-top:30px;">Course Classes / Semesters</h2>
+    <table *ngIf="courseClasses" class="table">
+      <thead>
+        <th scope="col">Id</th>
+        <th scope="col">Name</th>
+        <th scope="col">Delete?</th>
+        <th scope="col"># students enrolled</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let courseClass of courseClasses">
+          <th scope="row">{{ courseClass.id }}</th>
+          <td><a routerLink="/class/{{courseClass.id}}">{{ courseClass.name }}</a></td>
+          <td>
+            <button type="button" class="btn btn-danger" title="delete course class"
+                      (click)="delete(courseClass)">x</button></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="form-group">
+      <label for="new-class">Course name: </label>
+      <input id="new-class" #courseClassName />
+
+      <!-- (click) passes input value to add() and then clears the input -->
+      <button type="button" class="add-button" (click)="saveNewCourseClass(courseClassName.value); courseClassName.value=''">
+        Add Class
+      </button>
+    </div>
+
+  </div>
+</div>

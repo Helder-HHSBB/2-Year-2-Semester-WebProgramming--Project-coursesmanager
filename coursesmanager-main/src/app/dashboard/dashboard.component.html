@@ -1,0 +1,9 @@
+<h2>Top Courses</h2>
+<div class="courses-menu">
+  <a *ngFor="let course of courses"
+      routerLink="/coursedetail/{{course.id}}">
+      {{course.name}}
+  </a>
+</div>
+
+<app-course-search></app-course-search>

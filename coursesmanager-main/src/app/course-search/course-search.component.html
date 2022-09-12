@@ -1,0 +1,9 @@
+<input #searchBox id="search-box"  (input)="search(searchBox.value)" class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+
+  <ul class="search-result">
+    <li *ngFor="let course of courses$ | async" >
+      <a routerLink="/coursedetail/{{course.id}}">
+        {{course.name}}
+      </a>
+    </li>
+  </ul>

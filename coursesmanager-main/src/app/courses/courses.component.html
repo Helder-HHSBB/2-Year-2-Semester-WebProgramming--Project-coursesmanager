@@ -1,0 +1,21 @@
+<h2>My Courses</h2>
+
+<div>
+  <label for="new-course">Course name: </label>
+  <input id="new-course" #courseName />
+
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button type="button" class="add-button" (click)="add(courseName.value); courseName.value=''">
+    Add course
+  </button>
+</div>
+
+<ul class="courses">
+  <li *ngFor="let course of courses">
+    <a routerLink="/coursedetail/{{course.id}}">
+      <span class="badge">{{course.id}}</span> {{course.name}}
+    </a>
+    <button type="button" class="delete" title="delete course"
+      (click)="delete(course)">x</button>
+  </li>
+</ul>
